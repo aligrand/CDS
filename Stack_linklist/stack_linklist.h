@@ -1,3 +1,8 @@
+/**
+ * author: Ali Elahi - aligrand
+ * github: github.com/aligrand
+*/
+
 #ifndef SLL_H
 #define SLL_H
 

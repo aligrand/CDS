@@ -1,3 +1,8 @@
+/**
+ * author: Ali Elahi - aligrand
+ * github: github.com/aligrand
+*/
+
 #include "stack_linklist.h"
 
 typedef struct
