@@ -2,7 +2,7 @@
 
 typedef struct
 {
-    void *val;
+    size_t val;
     StackMember *down_layer;
 } StackMember;
 
@@ -13,7 +13,7 @@ void sll_init(StackLLptr *ptr)
     ptr->max_size = SIZE_MAX;
 }
 
-StackState sll_push(StackLLptr *ptr, void *value)
+StackState sll_push(StackLLptr *ptr, size_t value)
 {
     if (ptr->mem_count != ptr->max_size)
     {
@@ -48,7 +48,7 @@ StackState sll_pop(StackLLptr *ptr)
     return UnderFlow;
 }
 
-void *sll_peek(StackLLptr *ptr)
+size_t sll_peek(StackLLptr *ptr)
 {
     if (ptr->mem_count == 0)
     {
@@ -62,7 +62,7 @@ void *sll_peek(StackLLptr *ptr)
 
 uchar sll_isEmpty(StackLLptr *ptr)
 {
-    return ptr->mem_count == 0 ? 1 : 0;
+    return (ptr->mem_count == 0 ? 1 : 0);
 }
 
 void sll_clear(StackLLptr *ptr)
@@ -75,7 +75,7 @@ void sll_clear(StackLLptr *ptr)
 
 StackState sll_copy(StackLLptr *ptr)
 {
-    void *tmp = sll_peek(ptr);
+    size_t tmp = sll_peek(ptr);
 
     if (ptr->mem_count == 0)
     {
@@ -89,9 +89,9 @@ StackState sll_swap(StackLLptr *ptr)
 {
     if (ptr->mem_count >= 2)
     {
-        void *tmp1 = sll_peek(ptr);
+        size_t tmp1 = sll_peek(ptr);
         sll_pop(ptr);
-        void *tmp2 = sll_peek(ptr);
+        size_t tmp2 = sll_peek(ptr);
         sll_pop(ptr);
 
         sll_push(ptr, tmp1);
@@ -103,7 +103,45 @@ StackState sll_swap(StackLLptr *ptr)
     return Error;
 }
 
-void sll_copyto(StackLLptr *ptr, void *arr[])
+StackState sll_circular_copy(StackLLptr *ptr)
+{
+    StackState s = NoError;
+    StackLLptr *tmp = (StackLLptr *)malloc(sizeof(StackLLptr));
+    size_t *tmp_member;
+
+    sll_init(tmp);
+
+    s = sll_swap(ptr);
+
+    if (s == Error)
+    {
+        sll_clear(tmp);
+
+        return Error;
+    }
+
+    while (s == NoError)
+    {
+        sll_push(tmp, ((StackMember *)(ptr->top))->val);
+
+        s = sll_swap(ptr);
+    }
+    
+    s = NoError;
+
+    while (s == NoError)
+    {
+        tmp_member = sll_peek(tmp);
+        sll_push(ptr, tmp_member);
+        s = sll_pop(tmp);
+    }
+    
+    sll_clear(tmp);
+
+    return NoError;
+}
+
+void sll_copyto(StackLLptr *ptr, size_t arr[])
 {
     StackLLptr *tmp = ptr;
 
