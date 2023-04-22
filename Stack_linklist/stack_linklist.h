@@ -24,9 +24,17 @@ typedef enum
 // Stack must be initialed
 void sll_init(StackLLptr *ptr);
 
-// if your data isfewer than 8 Byte pass the value but if your data is more than 8 Byte pass the address
+/**
+ * @note if your data isfewer than 8 Byte pass the value but if your data is more than 8 Byte pass the address
+ * @retval NoError
+ * @retval OverFlow
+ */
 StackState sll_push(StackLLptr *ptr, size_t value);
 
+/**
+ * @retval NoError
+ * @retval UnderFlow
+ */
 StackState sll_pop(StackLLptr *ptr);
 
 /**
@@ -40,13 +48,25 @@ uchar sll_isEmpty(StackLLptr *ptr);
 
 void sll_clear(StackLLptr *ptr);
 
-// creat a copy of last member and push it to stack
+/**
+ * @retval Error if member-count equal zero
+ * @retval OverFlow if count more than limit
+ * @retval NoError
+ * @note creat a copy of last member and push it to stack
+ */
 StackState sll_copy(StackLLptr *ptr);
 
-// creat a copy of last member and push it to stack
-StackState sll_circular_copy(StackLLptr *ptr);
+/**
+ * @retval Error if member-coutn < 2
+ * @retval NoError
+ */
+StackState sll_circular_swap(StackLLptr *ptr);
 
-// swap 2 last member in stack
+/**
+ * @retval Error if member-coutn < 2
+ * @retval NoError
+ * @note swap 2 last member in stack
+ */
 StackState sll_swap(StackLLptr *ptr);
 
 // copy our stack to a array of void*

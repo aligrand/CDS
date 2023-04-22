@@ -103,7 +103,7 @@ StackState sll_swap(StackLLptr *ptr)
     return Error;
 }
 
-StackState sll_circular_copy(StackLLptr *ptr)
+StackState sll_circular_swap(StackLLptr *ptr)
 {
     StackState s = NoError;
     StackLLptr *tmp = (StackLLptr *)malloc(sizeof(StackLLptr));
