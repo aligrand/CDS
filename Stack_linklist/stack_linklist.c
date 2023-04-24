@@ -59,7 +59,7 @@ size_t sll_peek(StackLLptr *ptr)
 {
     if (ptr->mem_count == 0)
     {
-        return NULL;
+        return SIZE_MAX;
     }
     else
     {

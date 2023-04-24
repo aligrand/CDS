@@ -44,7 +44,7 @@ StackState sll_pop(StackLLptr *ptr);
 
 /**
  * @retval stack member
- * @retval NULL if stack members be 0
+ * @retval SIZE_MAX if stack members be 0
  * @note the retval is void* and yu must cast it by your own
  */
 size_t sll_peek(StackLLptr *ptr);
