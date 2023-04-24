@@ -32,8 +32,6 @@ StackState sll_push(StackLLptr *ptr, size_t value)
         ptr->top = (void *)tmp;
         ++(ptr->mem_count);
 
-        free(tmp);
-
         return NoError;
     }
 
@@ -140,11 +138,11 @@ StackState sll_circular_swap(StackLLptr *ptr)
     
     s = NoError;
 
-    while (s == NoError)
+    while (tmp->mem_count > 0)
     {
         tmp_member = sll_peek(tmp);
         sll_push(ptr, tmp_member);
-        s = sll_pop(tmp);
+        sll_pop(tmp);
     }
     
     sll_clear(tmp);
@@ -164,7 +162,7 @@ void sll_copyto(StackLLptr *ptr, size_t arr[])
     {
         member = sll_peek(ptr);
         sll_push(tmp, member);
-        arr[ptr->mem_count] = member;
+        arr[ptr->mem_count - 1] = member;
         sll_pop(ptr);
     }
 
