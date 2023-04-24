@@ -5,11 +5,13 @@
 
 #include "stack_linklist.h"
 
-typedef struct
+struct StackMember
 {
     size_t val;
-    StackMember *down_layer;
-} StackMember;
+    struct StackMember *down_layer;
+};
+
+typedef struct StackMember StackMember;
 
 void sll_init(StackLLptr *ptr)
 {
