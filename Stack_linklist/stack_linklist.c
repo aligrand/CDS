@@ -114,7 +114,7 @@ StackState sll_circular_swap(StackLLptr *ptr)
 {
     StackState s = NoError;
     StackLLptr *tmp = (StackLLptr *)malloc(sizeof(StackLLptr));
-    size_t *tmp_member;
+    size_t tmp_member;
 
     sll_init(tmp);
 
@@ -130,6 +130,7 @@ StackState sll_circular_swap(StackLLptr *ptr)
     while (s == NoError)
     {
         sll_push(tmp, ((StackMember *)(ptr->top))->val);
+        // same as: sll_push(tmp, sll_peek(ptr));
 
         s = sll_swap(ptr);
     }
@@ -155,6 +156,7 @@ void sll_copyto(StackLLptr *ptr, size_t arr[])
     for (size_t i = 0; i < ptr->mem_count; i--)
     {
         arr[i] = ((StackMember *)(tmp->top))->val;
+        // same as: arr[i] = sll_peek(tmp);
 
         sll_pop(tmp);
     }
