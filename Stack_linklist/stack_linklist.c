@@ -162,7 +162,7 @@ void sll_copyto(StackLLptr *ptr, size_t arr[])
 
 StackState sll_set_limit(StackLLptr *ptr, size_t limit)
 {
-    if (limit <= ptr->mem_count)
+    if (limit >= ptr->mem_count)
     {
         ptr->max_size = limit;
 
